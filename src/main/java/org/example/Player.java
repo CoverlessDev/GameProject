@@ -25,14 +25,14 @@ public class Player {
 
         //Change this to logger and remove try and catch
         try{
-            image = ImageIO.read(new File("slimeimage.png"));
+            this.image = ImageIO.read(new File("src/main/resources/slimeimage.png"));
             }catch (IOException exception){
             System.out.println("Error opening file" + exception.getMessage());
         }
     }
 
     public void draw(Graphics inGraphics, ImageObserver inObserver){
-        inGraphics.drawImage(image, pos.x, pos.y, inObserver);
+        inGraphics.drawImage(image, pos.x, pos.y, 50,50, inObserver);
     }
 
     /**
@@ -59,8 +59,19 @@ public class Player {
         }
     }
 
-    //TODO Complete this so that the player can be updated per tick
     public void tick(){
 
+        //Stops player from leaving the board
+        if (pos.x < 0) {
+            pos.x = 0;
+        } else if (pos.x >= Board.columns) {
+            pos.x = Board.columns - 1;
+        }
+
+        if (pos.y < 0) {
+            pos.y = 0;
+        } else if (pos.y >= Board.rows) {
+            pos.y = Board.rows - 1;
+        }
     }
 }
