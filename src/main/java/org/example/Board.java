@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class Board extends JPanel implements ActionListener, KeyListener {
+public class Board extends JPanel implements ActionListener, KeyListener, CommonUtilities {
 
     public final int delay = 25;
     public static final int tileSize = 50;
@@ -36,11 +36,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 
     //TODO Work on this as I don't feel as if the boundaries are correct
     private void drawBackground(Graphics inGraphics) {
-        try {
-            this.background = ImageIO.read(new File("src/main/resources/tilemap.png"));
-        } catch (IOException exception) {
-            System.out.println("Error opening file" + exception.getMessage());
-        }
+        background = generateImage("src/main/resources/tilemap.png");
 
         inGraphics.drawImage(background,0,0, tileSize * columns, tileSize * rows, null );
     }

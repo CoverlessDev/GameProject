@@ -8,58 +8,47 @@ import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 
-public class Player {
+public class Player implements CommonUtilities {
 
     private BufferedImage image;
     private Point pos;
 
     //Constructor
-    public Player(){
-        loadImage();
-
-        pos = new Point(0,0);
+    public Player() {
+        this.image = generateImage("src/main/resources/slimeimage.png");
+        pos = new Point(0, 0);
 
     }
 
-    private void loadImage(){
-
-        //Change this to logger and remove try and catch
-        try{
-            this.image = ImageIO.read(new File("src/main/resources/slimeimage.png"));
-            }catch (IOException exception){
-            System.out.println("Error opening file" + exception.getMessage());
-        }
-    }
-
-    public void draw(Graphics inGraphics, ImageObserver inObserver){
-        inGraphics.drawImage(image, pos.x, pos.y, 50,50, inObserver);
+    public void draw(Graphics inGraphics, ImageObserver inObserver) {
+        inGraphics.drawImage(image, pos.x, pos.y, 50, 50, inObserver);
     }
 
     /**
      * Method that registers what key has been pressed and change the position of the player
      *
      * @param inEvent - The event that has happened i.e key press.
-     * */
-    public void keyPressed(KeyEvent inEvent){
+     */
+    public void keyPressed(KeyEvent inEvent) {
 
         int key = inEvent.getKeyCode();
 
         //vk is virtual key
-        if (key == KeyEvent.VK_W){
-            pos.translate(0,-3);
+        if (key == KeyEvent.VK_W) {
+            pos.translate(0, -3);
         }
-        if (key == KeyEvent.VK_D){
+        if (key == KeyEvent.VK_D) {
             pos.translate(3, 0);
         }
-        if (key == KeyEvent.VK_S){
+        if (key == KeyEvent.VK_S) {
             pos.translate(0, 3);
         }
-        if (key == KeyEvent.VK_A){
-            pos.translate(-3,0);
+        if (key == KeyEvent.VK_A) {
+            pos.translate(-3, 0);
         }
     }
 
-    public void tick(){
+    public void tick() {
 
 
         //TODO Need to set player boundaries based on the size of the window, although it might be an idea that once a player
