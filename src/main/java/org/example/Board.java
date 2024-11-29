@@ -1,5 +1,6 @@
 package org.example;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.tools.Tool;
 import java.awt.*;
@@ -7,17 +8,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class Board extends JPanel implements ActionListener, KeyListener {
 
     public final int delay = 25;
-    public final int tileSize = 50;
+    public static final int tileSize = 50;
     public static final int columns = 18;
     public static final int rows = 12;
     private final Player player;
+    private BufferedImage background;
 
     private Timer timer;
-    public Board(){
+
+    public Board() {
 
         setPreferredSize(new Dimension(tileSize * columns, tileSize * rows));
         setBackground(new Color(232, 232, 232));
@@ -28,9 +34,17 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 
     }
 
-    private void drawBackground(Graphics inGraphics){
-        inGraphics.setColor(new Color(253,253,253));
+    //TODO Work on this as I don't feel as if the boundaries are correct
+    private void drawBackground(Graphics inGraphics) {
+        try {
+            this.background = ImageIO.read(new File("src/main/resources/tilemap.png"));
+        } catch (IOException exception) {
+            System.out.println("Error opening file" + exception.getMessage());
+        }
+
+        inGraphics.drawImage(background,0,0, tileSize * columns, tileSize * rows, null );
     }
+
     @Override
     public void actionPerformed(ActionEvent inAction) {
 
@@ -39,7 +53,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     }
 
     @Override
-    public void paintComponent(Graphics inGraphics){
+    public void paintComponent(Graphics inGraphics) {
         super.paintComponent(inGraphics);
 
         drawBackground(inGraphics);
@@ -48,6 +62,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 
         Toolkit.getDefaultToolkit().sync();
     }
+
     @Override
     public void keyTyped(KeyEvent e) {
 

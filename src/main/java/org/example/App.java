@@ -13,7 +13,7 @@ public class App {
          window.add(board);
          window.addKeyListener(board);
 
-         window.setResizable(true);
+         window.setResizable(false);
 
          window.pack();
          window.setLocationRelativeTo(null);
