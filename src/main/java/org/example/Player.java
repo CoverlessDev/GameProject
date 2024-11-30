@@ -15,7 +15,7 @@ public class Player implements CommonUtilities {
 
     //Constructor
     public Player() {
-        this.image = generateImage("src/main/resources/slimeimage.png");
+        this.image = generateImage("src/main/resources/Slime2.png");
         pos = new Point(0, 0);
 
     }
@@ -35,16 +35,16 @@ public class Player implements CommonUtilities {
 
         //vk is virtual key
         if (key == KeyEvent.VK_W) {
-            pos.translate(0, -3);
+            pos.translate(0, -7);
         }
         if (key == KeyEvent.VK_D) {
-            pos.translate(3, 0);
+            pos.translate(7, 0);
         }
         if (key == KeyEvent.VK_S) {
-            pos.translate(0, 3);
+            pos.translate(0, 7);
         }
         if (key == KeyEvent.VK_A) {
-            pos.translate(-3, 0);
+            pos.translate(-7, 0);
         }
     }
 
