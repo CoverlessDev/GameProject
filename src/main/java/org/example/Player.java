@@ -1,28 +1,42 @@
 package org.example;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
-import java.io.File;
-import java.io.IOException;
-
 public class Player implements CommonUtilities {
 
-    private BufferedImage image;
+    public BufferedImage image;
     private Point pos;
 
+    private Graphics graphics;
+    private ImageObserver observer;
+
+    PlayerAnimation animation = new PlayerAnimation();
+
+    //Empty consutrctpr
+    public Player(){
+
+    }
     //Constructor
-    public Player() {
+    public Player(BufferedImage image) {
         this.image = generateImage("src/main/resources/Slime2.png");
         pos = new Point(0, 0);
 
     }
 
+    public void changeFrame(BufferedImage image) {
+        this.image = image;
+        draw(graphics, observer);
+    }
+
     public void draw(Graphics inGraphics, ImageObserver inObserver) {
+        this.graphics = inGraphics;
+        this.observer = inObserver;
+
         inGraphics.drawImage(image, pos.x, pos.y, 50, 50, inObserver);
     }
+
 
     /**
      * Method that registers what key has been pressed and change the position of the player
@@ -36,9 +50,12 @@ public class Player implements CommonUtilities {
         //vk is virtual key
         if (key == KeyEvent.VK_W) {
             pos.translate(0, -7);
+
         }
         if (key == KeyEvent.VK_D) {
             pos.translate(7, 0);
+            this.image = null;
+            animation.animateD();
         }
         if (key == KeyEvent.VK_S) {
             pos.translate(0, 7);
